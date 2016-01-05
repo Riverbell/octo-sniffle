@@ -1,0 +1,16 @@
+body { 
+	background-color: lightblue;
+	font-family: sans-serif;
+}
+
+a, a:visited {
+	color: blue;
+	text-decoration: none;
+}
+
+.container {
+	background-color: #fff;
+	padding: 50px;
+	margin: 20px auto;
+	width: 50%;
+}
