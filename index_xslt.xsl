@@ -11,7 +11,7 @@
 	<html>
 		<head>
 			<title><xsl:value-of select="title"/></title>
-			<link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
+			<link rel="stylesheet" type="text/css" href="/~mawestl/DM2517/project/style.css"/>
 		</head>
 		<body>
 			<h1><xsl:value-of select="title"/></h1>
