@@ -47,6 +47,12 @@
 	        $booking_id = $line->booking_id;
 	        $numberOfTickets = $line->tickets;
 
+	        $event_id = utf8_encode($event_id);
+	        $event_name = utf8_encode($event_name);
+	        $venue = utf8_encode($venue);
+	        $category = utf8_encode($category);
+	        $creator = utf8_encode($creator);
+
 	    
 	   		$booking_info .= "
 	   			<div class='container'>
@@ -87,12 +93,13 @@
 	<head>
 		<title>Profil</title>
 	    <link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
+	    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	</head>
 	<body>
 		<?php
 		include 'menu.php';
-		print utf8_decode($profile);
-        print utf8_decode($booking_info);
+		print $profile;
+        print $booking_info;
     ?>
 
 	
