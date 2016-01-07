@@ -1,4 +1,3 @@
-
 <?php
 //if username and password are submitted
 if(isset($_POST['user_email'], $_POST['password'])) {
