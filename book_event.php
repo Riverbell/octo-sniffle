@@ -40,7 +40,11 @@
 	        $category = $line->category_name;
 	        $creator = $line->user_email;
 
-	    
+	    	$event_name = utf8_encode($event_name);
+	        $venue = utf8_encode($venue);
+	        $category = utf8_encode($category);
+	        $creator = utf8_encode($creator);
+
 	   
 	        // Store the result we want by appending strings
 	        $event_info = "
@@ -76,13 +80,14 @@
 	<head>
 		<title>Uppdatera event</title>
 	    <link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	</head>
 	<body>
 		<?php
 		include 'menu.php';
 		print ("<div class='container'");
-        print utf8_decode($event_info);
-        print utf8_decode($booking_form);
+        print $event_info;
+        print $booking_form;
         print ("</div>");
     ?>
 
