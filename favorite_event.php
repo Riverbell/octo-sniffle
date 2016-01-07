@@ -8,7 +8,7 @@
 <html>
 	<?php
 		//Connecting to sql db.
-		$link = mysqli_connect('localhost', 'mawestl', 'mawestl-xmlpub13', 'mawestl');
+		$link = mysqli_connect('localhost', 'emmabac', 'emmabac-xmlpub13', 'emmabac');
 
 		//Check connection
 		if (mysqli_connect_errno()) {
@@ -38,7 +38,7 @@
 		?>
 		<head>
 			<title>Lagd i favoriter</title>
-			<link rel="stylesheet" type="text/css" href="/~mawestl/DM2517/project/style.css"/>
+			<link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
 		</head>
 		<body>
 			<?php
