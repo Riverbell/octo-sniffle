@@ -39,6 +39,10 @@
 	        $starttime = $line->starttime;
 	        $category = $line->category_id;
 
+	        $event_id = utf8_encode($event_id);
+	        $event_name = utf8_encode($event_name);
+	        $venue = utf8_encode($venue);
+	        $category = utf8_encode($category);
 	    
 	   
 	        // Store the result we want by appending strings
@@ -81,7 +85,7 @@
 		<?php
 		include 'menu.php';
 		print "<div class='container'>";
-        print utf8_encode($update_form);
+        print $update_form;
         print "</div>";
     ?>
 
