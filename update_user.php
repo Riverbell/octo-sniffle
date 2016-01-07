@@ -1,6 +1,6 @@
 <?php
         session_start();
-        if(!isset($_SESSION['user_type'] == 'admin'))
+        if($_SESSION['user_type'] != 'admin')
         {
             header("location: login.php");
         }
@@ -27,7 +27,7 @@
 	       exit();
 	    }
 
-	    $user = "";
+
 	    while ($line = $result->fetch_object()) {
 	        // Store results from each row in variables
 	        $user_email = $line->user_email;
@@ -40,39 +40,37 @@
 	        $user_password = utf8_encode($user_password);
 	        $user_type = utf8_encode($user_type);
 
-	        $user .= "<div class='container'>
-	        	<form action='update_user_process.php' method='post'>
-	        		<input type='hidden' name='old_user_email' value='$user_email'/>
-		        	<p>Namn: 
-		        		<input type='text' name='new_user_name' value='$user_name'/>
-		        	</p>
-		        	<p>Email: 
-		        		<input type='text' name='new_user_email' value='$user_email'/>
-		        	</p>
-		        	<p>Nuvarande medlemstyp: $user_type </p>
-		        	<p>Ny medlemstyp:
-		        		<select name='new_user_type'>
-		        			<option value='admin' ";
-			        		if ($user_type == 'admin') {
-			        			$user .= "selected";
-			        		}
-		        			$user .= ">Admin</option>
-		        			<option value='creator' ";
-			        		if ($user_type == 'creator') {
-			        			$user .= "selected";
-			        		}
-		        			$user .= ">Creator</option>
-		        			<option value='user' ";
-			        		if ($user_type == 'user') {
-			        			$user .= "selected";
-			        		}
-		        			$user .= ">User</option>
-		        		</select>
-		        	</p>
-		        	<input type='submit' value='Spara'/>
-	        	</form>
-	        	</div>
-	        ";
+	    }
+
+	    // Update ===============================
+	    if(isset($_POST['new_user_name'], $_POST['new_user_email'], $_POST['new_user_type'], $_POST['new_password'], $_POST['new_password_again'])) {
+	    	$old_user_email = utf8_decode($_POST[old_user_email]);
+			$new_user_name = utf8_decode($_POST[new_user_name]);
+			$new_user_email = utf8_decode($_POST[new_user_email]);
+			$new_user_type = utf8_decode($_POST[new_user_type]);
+			$new_password = utf8_decode($_POST[new_password]);
+			$new_password_again = utf8_decode($_POST[new_password_again]);
+
+			if ( $new_password != $new_password_again ) {
+		    	$update_result = "Lösenorden matchar inte!";
+		    } else {
+		    	
+
+			    $query = "UPDATE users
+				    SET user_name = '$new_user_name', user_email = '$new_user_email', user_type = '$new_user_type'
+				    WHERE user_email = '$old_user_email'
+				    ";
+
+			    // Execute the query
+			    if (($result = mysqli_query($link, $query)) === false) {
+			       printf("Query failed: %s<br />\n%s", $query, mysqli_error($link));
+			       exit();
+			    }
+			    else {
+			        $update_result = "<p>Success!
+			            <a href='/~emmabac/DM2517/project/all_users.php'>Gå tillbaka</a></p>";
+			    }
+		    }
 	    }
 	?>
 	<head>
@@ -81,10 +79,48 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	</head>
 	<body>
+		<?php include 'menu.php'; ?>
+
+		<div class="container">
+			<form action='' method='post'>
+	        		<input type='hidden' name='old_user_email' value='<?php echo "$user_email" ?>'/>
+		        	<p>Namn: 
+		        		<input type='text' name='new_user_name' value='<?php echo "$user_name" ?>'/>
+		        	</p>
+		        	<p>Email: 
+		        		<input type='text' name='new_user_email' value='<?php echo "$user_email" ?>'/>
+		        	</p>
+		        	<p>Ny medlemstyp:
+		        		<select name='new_user_type'>
+		        			<option value='admin'
+			        		<?php if ($user_type == 'admin') {
+			        			echo 'selected';
+			        		} ?>
+		        			>Admin</option>
+		        			<option value='creator' 
+			        		<?php if ($user_type == 'creator') {
+			        			echo 'selected';
+			        		} ?>
+		        			>Creator</option>
+		        			<option value='user' 
+			        		<?php if ($user_type == 'user') {
+			        			echo 'selected';
+			        		} ?>
+		        			>User</option>
+		        		</select>
+		        	</p>
+		        	<p>Nytt lösenord: 
+		        		<input type='password' name='new_password' placeholder='***'/>
+		        	</p>
+		        	<p>Nytt lösenord igen: 
+		        		<input type='password' name='new_password_again' placeholder='***'/>
+		        	</p>
+		        	<input type='submit' value='Spara'/>
+	        	</form>
 		<?php
-		include 'menu.php';
-		print $user;
-    ?>
+			echo $update_result;
+	    ?>
+    	</div>
 
 	
 	</body>
