@@ -13,9 +13,9 @@
 ]>
 
 <?php
-    //http://xml.csc.kth.se/~emmabac/DM2517/project/start.php
+    //http://xml.csc.kth.se/~mawestl/DM2517/project/start.php
     // Connect using host, username, password and databasename
-    $link = mysqli_connect('localhost', 'emmabac', 'emmabac-xmlpub13', 'emmabac');
+    $link = mysqli_connect('localhost', 'mawestl', 'mawestl-xmlpub13', 'mawestl');
 
     // Check connection
     if (mysqli_connect_errno()) {
@@ -52,7 +52,7 @@
     
         //if there is no user logged in
         if(!isset($_SESSION['name'])) {
-            $event_tag .= "<event id='$event_id' edit='no' book='no'>
+            $event_tag .= "<event id='$event_id' edit='no' book='no' favorites='no'>
                 <name>$event_name</name>
                 <startdate>$startdate</startdate>
                 <starttime>$starttime</starttime>
@@ -65,7 +65,7 @@
         } else {
             //if the logged in user is the creator of this event or admin
             if ($creator_id==$_SESSION['name'] || $_SESSION['user_type'] == 'admin') {
-                $event_tag .= "<event id='$event_id' edit='ok' book='no'>
+                $event_tag .= "<event id='$event_id' edit='ok' book='no' favorites='no'>
                     <name>$event_name</name>
                     <startdate>$startdate</startdate>
                     <starttime>$starttime</starttime>
@@ -76,7 +76,7 @@
                     <available_tickets>$available_tickets</available_tickets>
                 </event>";
             } elseif ( $_SESSION['user_type'] == 'user' ) {
-                $event_tag .= "<event id='$event_id' edit='no' book='ok'>
+                $event_tag .= "<event id='$event_id' edit='no' book='ok' favorites='ok'>
                 <name>$event_name</name>
                 <startdate>$startdate</startdate>
                 <starttime>$starttime</starttime>
@@ -87,7 +87,7 @@
                 <available_tickets>$available_tickets</available_tickets>
             </event>";
             } elseif ( $_SESSION['user_type'] == 'creator' ) {
-                $event_tag .= "<event id='$event_id' edit='no' book='no'>
+                $event_tag .= "<event id='$event_id' edit='no' book='no' favorites='no'>
                 <name>$event_name</name>
                 <startdate>$startdate</startdate>
                 <starttime>$starttime</starttime>
@@ -123,6 +123,7 @@
             }
         }
     ?>
+    <menuItem link="search_event.php">Sök Event</menuItem>
     <menuItem link="profile.php">Profil</menuItem>
     <?php 
         print utf8_encode($menuItem);
