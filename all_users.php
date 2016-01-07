@@ -1,6 +1,6 @@
 <?php
         session_start();
-        if(!isset($_SESSION['user_type'] == 'admin'))
+        if($_SESSION['user_type'] != 'admin')
         {
             header("location: login.php");
         }
@@ -35,6 +35,11 @@
 	        $user_password = $line->user_password;
 	        $user_type = $line->user_type;
 
+	        $user_email = utf8_encode($user_email);
+	        $user_name = utf8_encode($user_name);
+	        $user_password = utf8_encode($user_password);
+	        $user_type = utf8_encode($user_type);
+
 	        $users .= "<div class='container'>
 		        	<h3>$user_name</h3>
 		        	<p>Email: $user_email</p>
@@ -58,7 +63,7 @@
 	<body>
 		<?php
 		include 'menu.php';
-		print utf8_encode($users);
+		print $users;
     ?>
 
 	
