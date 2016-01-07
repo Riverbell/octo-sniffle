@@ -1,10 +1,12 @@
 <?php
-        session_start();
+    session_start();
+    header('Content-type: text/html; charset=utf-8');
 ?>
 <html>
 <head>
     <title>Success!</title>
     <link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 </head>
 <body>
 <?php
@@ -18,12 +20,21 @@
     }
 
 
+    $event_name = utf8_decode($_POST[input_name]);
+    $venue = utf8_decode($_POST[input_venue]);
+    $category = utf8_decode($_POST[input_categoryID]);
+
+    //$event_name = $_POST[input_name];
+    //$venue = $_POST[input_venue];
+    //$category = $_POST[input_categoryID];
+
+
     $query = "UPDATE events
-    SET event_name = '$_POST[input_name]', total_tickets = '$_POST[input_totalTickets]', 
+    SET event_name = '$event_name', total_tickets = '$_POST[input_totalTickets]', 
     available_tickets = '$_POST[input_availableTickets]',
-    venue = '$_POST[input_venue]', startdate = '$_POST[input_startdate]', 
-    starttime = '$_POST[input_starttime]', user_email = '$_POST[input_creatorEmail]', 
-    category_id = '$_POST[input_categoryID]'
+    venue = '$venue', startdate = '$_POST[input_startdate]', 
+    starttime = '$_POST[input_starttime]', 
+    category_id = '$category'
     WHERE event_id = $_POST[event_id]
     ";
 
@@ -33,8 +44,8 @@
        exit();
     }
     else {
-        print utf8_decode("<p>Success!</p>
-            <a href='/~emmabac/DM2517/project/index.php'>Gå tillbaka</a>");
+        print "<p>Success!</p>
+            <a href='/~emmabac/DM2517/project/index.php'>Gå tillbaka</a>";
     }
 ?>
 </body>
