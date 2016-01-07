@@ -5,9 +5,9 @@
         <li><a href="index.php">Startsida</a></li>
     <?php
         if(!isset($_SESSION['name'])) {
-            $menuItem = "<li><a href='login.php'>Logga in</a></li>";
+            $loginItem = "<li><a href='login.php'>Logga in</a></li>";
         } else {
-            $menuItem = "<li><a href='logout.php'>Logga ut</a></li>";
+            $loginItem = "<li><a href='logout.php'>Logga ut</a></li>";
 
         }
         if(isset($_SESSION['name'])) {
@@ -17,8 +17,15 @@
         }
     ?>
     <li><a href="profile.php">Profil</a></li>
+    <?php
+        if(isset($_SESSION['name'])) {
+            if($_SESSION['user_type'] == 'admin') {
+                print "<li><a href='all_users.php'>Alla användare</a></li>";
+            } 
+        }
+    ?>
     <?php 
-        print utf8_encode($menuItem);
+        print utf8_encode($loginItem);
     ?>
     </ul>
 
