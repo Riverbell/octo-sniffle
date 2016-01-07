@@ -45,19 +45,20 @@
 	    // Update ===============================
 	    if(isset($_POST['new_user_name'], $_POST['new_user_email'], $_POST['new_user_type'], $_POST['new_password'], $_POST['new_password_again'])) {
 	    	$old_user_email = utf8_decode($_POST[old_user_email]);
+	    	$old_password = utf8_decode($_POST[old_password]);
 			$new_user_name = utf8_decode($_POST[new_user_name]);
 			$new_user_email = utf8_decode($_POST[new_user_email]);
 			$new_user_type = utf8_decode($_POST[new_user_type]);
 			$new_password = utf8_decode($_POST[new_password]);
 			$new_password_again = utf8_decode($_POST[new_password_again]);
 
-			if ( $new_password != $new_password_again ) {
-		    	$update_result = "Lösenorden matchar inte!";
-		    } else {
-		    	
-
+		    if ( $new_password == $new_password_again ) {
+		    	if (empty($new_password) and empty($new_password_again)){
+		    		$new_password = $old_password; 
+		    	}
 			    $query = "UPDATE users
-				    SET user_name = '$new_user_name', user_email = '$new_user_email', user_type = '$new_user_type'
+				    SET user_name = '$new_user_name', user_email = '$new_user_email', 
+				    user_type = '$new_user_type', user_password = '$new_password'
 				    WHERE user_email = '$old_user_email'
 				    ";
 
@@ -70,7 +71,9 @@
 			        $update_result = "<p>Success!
 			            <a href='/~emmabac/DM2517/project/all_users.php'>Gå tillbaka</a></p>";
 			    }
-		    }
+		    } else if ( $new_password != $new_password_again ) {
+		    	$update_result = "Lösenorden matchar inte!";
+		    } 
 	    }
 	?>
 	<head>
