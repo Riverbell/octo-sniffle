@@ -60,6 +60,13 @@
 				<input type="submit" value="Boka"/>
 			</form>
 		</xsl:if>
+
+		<xsl:if test="@favorites = 'ok'">
+			<form action="favorite_event.php" method="post">
+				<input type="hidden" value="{$event_id}" name="event_id"/>
+				<input type="submit" value="Lägg i favoriter"/>
+			</form>
+		</xsl:if>
 	</div>
 </xsl:template>
 
