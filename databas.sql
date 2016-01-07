@@ -3,13 +3,13 @@ CREATE TABLE users (
 	user_name VARCHAR(50),
 	user_password VARCHAR(20),
 	user_type VARCHAR(8)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE categories (
 	category_id INT PRIMARY KEY,
 	category_name VARCHAR(20)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE events (
 	event_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -23,7 +23,7 @@ CREATE TABLE events (
 	category_id INT, 
 	FOREIGN KEY (user_email) REFERENCES users(user_email),
 	FOREIGN KEY (category_id) REFERENCES categories(category_id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE bookings (
 	booking_id INT NOT NULL AUTO_INCREMENT,
@@ -33,7 +33,7 @@ CREATE TABLE bookings (
 	FOREIGN KEY (user_id) REFERENCES users(user_email),
 	FOREIGN KEY (event_id) REFERENCES events(event_id),
 	PRIMARY KEY (booking_id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 	
 CREATE TABLE favorites (
 	favorite_id INT NOT NULL AUTO_INCREMENT,
@@ -42,7 +42,7 @@ CREATE TABLE favorites (
 	FOREIGN KEY (user_id) REFERENCES users(user_email),
 	FOREIGN KEY (event_id) REFERENCES events(event_id),
 	PRIMARY KEY (favorite_id)
-	);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /* CREATE TABLE cat-links (
 	event_id INT,

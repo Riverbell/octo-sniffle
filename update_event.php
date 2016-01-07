@@ -1,5 +1,6 @@
 <?php
         session_start();
+        header('Content-type: text/html; charset=utf-8');
         if(!isset($_SESSION['name']) || $_SESSION['user_type'] == 'user') {
 			header("location: login.php");
 		}
@@ -42,7 +43,7 @@
 	   
 	        // Store the result we want by appending strings
 
-	    	$update_form = "<form action='update_event_process.php' method='post'>
+	    	$update_form = "<form action='update_event_process.php' method='post' accept-charset='utf-8'>
 					<input type='hidden' value='$event_id' name='event_id'/>
 					<p>Event Namn:
 					<input type='text' name='input_name' value='$event_name'/>
@@ -74,12 +75,13 @@
 	<head>
 		<title>Uppdatera event</title>
 	    <link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	</head>
 	<body>
 		<?php
 		include 'menu.php';
 		print "<div class='container'>";
-        print utf8_decode($update_form);
+        print utf8_encode($update_form);
         print "</div>";
     ?>
 
