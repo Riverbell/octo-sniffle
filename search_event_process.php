@@ -1,5 +1,6 @@
 <?php
-	$event_name=$_POST[event_name];
+	$event_name=$_GET['event_name'];
+	//print($event_name);
 	//create connection to db to check if event_name exists
 	$link = mysqli_connect('localhost', 'mawestl', 'mawestl-xmlpub13', 'mawestl');
 	$query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, user_email, category_id, user_name, category_name
@@ -37,17 +38,22 @@
 				</div>
 				";
 	}
+
+	echo $event_info;
 ?>
+<!--
 <html>
 <head>
 	<title>Hittat event!</title>
 	<link rel="stylesheet" type="text/css" href="/~mawestl/DM2517/project/style.css"/>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	
 </head>
 <body>
 	<?php
-	include 'menu.php';
-	print($event_info);
+	//include 'menu.php';
+	//print($event_info);
 ?>
 </body>
 </html>
+-->
