@@ -10,12 +10,13 @@
     <!ENTITY auml "&#228;">
     <!ENTITY Ouml "&#214;">
     <!ENTITY ouml "&#246;">
+    <!ENTITY amp "&#38;">
 ]>
 
 <?php
-    //http://xml.csc.kth.se/~mawestl/DM2517/project/start.php
+    //http://xml.csc.kth.se/~emmabac/DM2517/project/start.php
     // Connect using host, username, password and databasename
-    $link = mysqli_connect('localhost', 'mawestl', 'mawestl-xmlpub13', 'mawestl');
+    $link = mysqli_connect('localhost', 'emmabac', 'emmabac-xmlpub13', 'emmabac');
 
     // Check connection
     if (mysqli_connect_errno()) {
@@ -49,6 +50,8 @@
         $creator = $line->user_name;
         $category = $line->category_name;
         $creator_id = $line->user_email;
+        //$favorite_id = $line->favorite_id;
+
     
         //if there is no user logged in
         if(!isset($_SESSION['name'])) {

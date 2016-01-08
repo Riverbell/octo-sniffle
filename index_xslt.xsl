@@ -11,7 +11,60 @@
 	<html>
 		<head>
 			<title><xsl:value-of select="title"/></title>
-			<link rel="stylesheet" type="text/css" href="/~mawestl/DM2517/project/style.css"/>
+			<link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
+
+			<script language = "javascript" type = "text/javascript">
+            <xsl:text disable-output-escaping="yes">
+            function ajaxFunction(id, ajaxDisplay, act){
+               var ajaxRequest; 
+               
+               try {
+                  // Opera 8.0+, Firefox, Safari
+                  ajaxRequest = new XMLHttpRequest();
+               }catch (e) {
+                  // Internet Explorer Browsers
+                  try {
+                     ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+                  }catch (e) {
+                     try{
+                        ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                     }catch (e){
+                        // Something went wrong
+                        alert("Your browser broke!");
+                        return false;
+                     }
+                  }
+               }
+               
+               // Create a function that will receive data 
+               // sent from the server and will update
+               // div section in the same page.
+					
+               ajaxRequest.onreadystatechange = function(){
+                  if(ajaxRequest.readyState == 4){
+                     //var ajaxDisplay = document.getElementById('fav_sub_1');
+                     ajaxDisplay.innerHTML = ajaxRequest.responseText;
+                  }
+               }
+               
+               // Now get the value from user and pass it to
+               // server script.
+					
+               //var id = document.getElementById('fav_event_1').value;
+
+               //querystring is what is written in the url
+               //since the ajax-example.php is using get, we can
+               //write our desired input in the url
+               var queryString = "?event_id=" + id + "&amp;act=" + act ;
+               
+               console.log(queryString);
+
+               ajaxRequest.open("GET", "favorite_event.php" + queryString, true);
+               ajaxRequest.send(null); 
+            }
+         //-->
+     </xsl:text>
+      </script>
 		</head>
 		<body>
 			<h1><xsl:value-of select="title"/></h1>
@@ -61,10 +114,14 @@
 			</form>
 		</xsl:if>
 
+		
+
 		<xsl:if test="@favorites = 'ok'">
-			<form action="favorite_event.php" method="post">
-				<input type="hidden" value="{$event_id}" name="event_id"/>
-				<input type="submit" value="Lägg i favoriter"/>
+			<form id="fav_{$event_id}">
+				<input type="hidden" value="{$event_id}" name="event_id" id="fav_event_{$event_id}"/>
+				<div id="fav_sub_{$event_id}">
+					<input type="button" value="Lägg i favoriter" onclick = "ajaxFunction({$event_id}, fav_sub_{$event_id}, 'add')"/>
+				</div>
 			</form>
 		</xsl:if>
 	</div>
