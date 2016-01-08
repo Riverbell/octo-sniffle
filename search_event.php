@@ -2,7 +2,7 @@
 
 	<?php
 		//Connecting to db
-		$link = mysqli_connect('localhost', 'mawestl', 'mawestl-xmlpub13', 'mawestl');
+		$link = mysqli_connect('localhost', 'emmabac', 'emmabac-xmlpub13', 'emmabac');
 		//Check connection
 		if (mysqli_connect_errno()) {
 	        printf("Connect failed: %s\n", mysqli_connect_error());
@@ -11,7 +11,7 @@
 ?>
 <head>	  		
 	<title>Sök Event</title>
-	<link rel="stylesheet" type="text/css" href="/~mawestl/DM2517/project/style.css"/>
+	<link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 	
 </head>
@@ -20,10 +20,9 @@
 	print("<div class='container'>");
 	print("<h2>Sök event</h2>");
 	?>
-	<form>
+	<form id="test">
 		<label>Eventnamn</label>
-		<input id='name' name='event_name' placeholder='Eventnamn' type='text' onkeyup = "if (event.keyCode == 13)
-                        {ajaxFunction()}"/>
+		<input id='name' name='event_name' placeholder='Eventnamn' type='text' onkeypress='return runScript(event)'/>
 		<input id='butt' type='button' onclick = 'ajaxFunction()' value='Sök' />
 	</form>
 	<?php
@@ -32,8 +31,15 @@
 	<div id='search_result'></div>
 	<script language = "javascript" type = "text/javascript">
             //Browser Support Code
+
+		    function runScript(e) {
+			    if (e.keyCode == 13) {
+			        ajaxFunction();
+			        return false;
+			    }
+}
+
             function ajaxFunction(){
-            	console.log("Hej");
                var ajaxRequest;  // The variable that makes Ajax possible!
                
                try {
@@ -72,7 +78,7 @@
                // server script.
                
                var event_name = document.getElementById('name').value;
-               var queryString = "?event_name=" + event_name;
+               var queryString = "?event_name=" + event_name ;
                console.log(queryString);
                ajaxRequest.open("GET", "search_event_process.php" + queryString, true);
                ajaxRequest.send(null); 
