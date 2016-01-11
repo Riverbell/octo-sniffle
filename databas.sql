@@ -27,10 +27,10 @@ CREATE TABLE events (
 
 CREATE TABLE bookings (
 	booking_id INT NOT NULL AUTO_INCREMENT,
-	user_id VARCHAR(40),
+	user_email VARCHAR(40),
 	event_id INT,
 	tickets INT, 
-	FOREIGN KEY (user_id) REFERENCES users(user_email),
+	FOREIGN KEY (user_email) REFERENCES users(user_email),
 	FOREIGN KEY (event_id) REFERENCES events(event_id),
 	PRIMARY KEY (booking_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
