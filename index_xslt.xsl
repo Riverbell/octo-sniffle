@@ -115,8 +115,15 @@
 		</xsl:if>
 
 		
-
-		<xsl:if test="@favorites = 'ok'">
+		<xsl:if test="@favorites = 'ok_fav'">
+			<form id="fav_{$event_id}">
+				<input type="hidden" value="{$event_id}" name="event_id" id="fav_event_{$event_id}"/>
+				<div id="fav_sub_{$event_id}">
+					<input type="button" value="Ta bort från favoriter" onclick = "ajaxFunction({$event_id}, fav_sub_{$event_id}, 'del')"/>
+				</div>
+			</form>
+		</xsl:if>
+		<xsl:if test="@favorites = 'ok_nofav'">
 			<form id="fav_{$event_id}">
 				<input type="hidden" value="{$event_id}" name="event_id" id="fav_event_{$event_id}"/>
 				<div id="fav_sub_{$event_id}">

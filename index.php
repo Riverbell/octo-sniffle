@@ -24,6 +24,27 @@
         exit();
     }
 
+    // FAVORITES ==============================================
+    //check fav events
+    $user_email = $_SESSION['name'];
+    $query = "SELECT event_id FROM favorites WHERE user_email = '$user_email'";
+
+    // Execute the query
+    if (($result = mysqli_query($link, $query)) === false) {
+       printf("Query failed: %s<br />\n%s", $query, mysqli_error($link));
+       exit();
+    }
+
+    $fav_events = array();
+    $i = 0;
+    while($row = $result->fetch_object()) {
+        $fav_event = $row->event_id;
+        $fav_events[$i] = $fav_event;
+        $i = $i + 1;
+    }
+
+    
+
 
 // EVENTS ========================================================
     $query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, user_email, category_id, user_name, category_name
@@ -37,6 +58,7 @@
        exit();
     }
 
+    
     $event_tag = '';
     while ($line = $result->fetch_object()) {
         // Store results from each row in variables
@@ -79,16 +101,31 @@
                     <available_tickets>$available_tickets</available_tickets>
                 </event>";
             } elseif ( $_SESSION['user_type'] == 'user' ) {
-                $event_tag .= "<event id='$event_id' edit='no' book='ok' favorites='ok'>
-                <name>$event_name</name>
-                <startdate>$startdate</startdate>
-                <starttime>$starttime</starttime>
-                <venue>$venue</venue>
-                <creator>$creator</creator>
-                <category>$category</category>
-                <total_tickets>$total_tickets</total_tickets>
-                <available_tickets>$available_tickets</available_tickets>
-            </event>";
+                //if the logged in user already has favorited this event
+                if (in_array("$event_id", $fav_events)) {
+                    $event_tag .= "<event id='$event_id' edit='no' book='ok' favorites='ok_fav'>
+                        <name>$event_name</name>
+                        <startdate>$startdate</startdate>
+                        <starttime>$starttime</starttime>
+                        <venue>$venue</venue>
+                        <creator>$creator</creator>
+                        <category>$category</category>
+                        <total_tickets>$total_tickets</total_tickets>
+                        <available_tickets>$available_tickets</available_tickets>
+                    </event>";
+                //if the logged in user has NOT favorited this event
+                } else {
+                    $event_tag .= "<event id='$event_id' edit='no' book='ok' favorites='ok_nofav'>
+                        <name>$event_name</name>
+                        <startdate>$startdate</startdate>
+                        <starttime>$starttime</starttime>
+                        <venue>$venue</venue>
+                        <creator>$creator</creator>
+                        <category>$category</category>
+                        <total_tickets>$total_tickets</total_tickets>
+                        <available_tickets>$available_tickets</available_tickets>
+                    </event>"; 
+                }
             } elseif ( $_SESSION['user_type'] == 'creator' ) {
                 $event_tag .= "<event id='$event_id' edit='no' book='no' favorites='no'>
                 <name>$event_name</name>
