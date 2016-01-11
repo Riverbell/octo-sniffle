@@ -26,6 +26,9 @@
 		    $new_user_name = utf8_decode($_POST[new_user_name]);
 		    $new_user_email = utf8_decode($_POST[new_user_email]);
 		    $new_user_type = utf8_decode($_POST[new_user_type]);
+		    $new_password = utf8_decode($_POST[new_password]);
+		    $new_password_again = utf8_decode($_POST[new_password_again]);
+
 
 		    $query = "UPDATE users
 			    SET user_name = '$new_user_name', user_email = '$new_user_email', user_type = '$new_user_type'
