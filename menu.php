@@ -3,6 +3,7 @@
     <ul>
         
         <li><a href="index.php">Startsida</a></li>
+        <li><a href="profile.php">Profil</a></li>
     <?php
         if(!isset($_SESSION['name'])) {
             $loginItem = "<li><a href='login.php'>Logga in</a></li>";
@@ -12,11 +13,10 @@
         }
         if(isset($_SESSION['name'])) {
             if($_SESSION['user_type'] == 'admin' || $_SESSION['user_type'] == 'creator') {
-                print utf8_encode("<li><a href='create_event.php'>Skapa event</a></li>");
+                print "<li><a href='create_event.php'>Skapa event</a></li>";
             }
         }
     ?>
-    <li><a href="profile.php">Profil</a></li>
     <?php
         if(isset($_SESSION['name'])) {
             if($_SESSION['user_type'] == 'admin') {
@@ -25,7 +25,7 @@
         }
     ?>
     <?php 
-        print utf8_encode($loginItem);
+        print $loginItem;
     ?>
     </ul>
 

@@ -8,15 +8,48 @@ body {
 input {
 	font-family: 'Raleway';
 }
-/* standardlänkar, och besökta länkar */
-a, a:visited {
+
+a, a:visited { /* standardlänkar, och besökta länkar */
 	color: blue;
 	text-decoration: none;
 }
-/* mouse hover på standardlänkar */
-a:hover {
+
+a:hover { /* mouse hover på standardlänkar */
 	text-decoration: underline;
 }
+ 
+/* 
+* meny ============================================
+*/
+.menu ul {
+	padding: 0;
+	margin: 0;
+	list-style-type: none; /* tar bort plupparna */
+}
+
+.menu li {
+	display: inline-block; /* så att varje li blir ett block 
+							och de ligger sida vid sida */
+	padding: 8px 12px;  /*  top&bottom, right&left*/
+	background-color: MediumTurquoise;
+	cursor: pointer; 
+}
+/* länkarna i meny-listobjekten */
+.menu li a, .menu li a:visited {
+	color: #fff;
+}
+
+.menu li:hover {
+	background-color: LightSeaGreen;
+}
+.menu li a:hover {
+	color: #fff;
+}
+
+
+/* 
+* innehåll =========================================
+*/
 
 .container {
 	background-color: #fff;
@@ -53,6 +86,12 @@ form {
 	width: 100%;
 	text-align: right;
 }
-form p, form h2, form h3, form#search {
+form p, form h2, form h3 {
 	text-align: left;
+}
+
+form#search input[type='text'] {
+	display: block;
+	width: 100%;
+	padding: 7px 7px;
 }

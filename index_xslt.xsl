@@ -148,7 +148,7 @@
 		<h2>Sök event</h2>
 		<form id="search">
 			<input id='search_input' name='event_name' placeholder='Sökord' type='text' onkeypress='return runSearch(event)'/>
-			<input class='submit_button' id='butt' type='button' onclick = 'ajaxFunc_search()' value='Sök' />
+			<br/><input class='submit_button' id='butt' type='button' onclick = 'ajaxFunc_search()' value='Sök' />
 		</form>
 	</div>
 	<div id="search_result">

@@ -159,16 +159,25 @@
 <bookingSystem>
 <menu>
     <menuItem link="index.php">Startsida</menuItem>
+    <menuItem link="profile.php">Profil</menuItem>
     <?php
         if(isset($_SESSION['name'])) {
             if($_SESSION['user_type'] == 'admin' || $_SESSION['user_type'] == 'creator') {
-                print utf8_encode("<menuItem link='create_event.php'>Skapa event</menuItem>");
+                print "<menuItem link='create_event.php'>Skapa event</menuItem>";
             }
         }
     ?>
-    <menuItem link="profile.php">Profil</menuItem>
+
+    <?php
+
+        if(isset($_SESSION['name'])) {
+            if($_SESSION['user_type'] == 'admin') {
+                print "<menuItem link='all_users.php'>Alla användare</menuItem>";
+            } 
+        }
+    ?>
     <?php 
-        print utf8_encode($menuItem);
+        print $menuItem;
     ?>
 </menu>
 <title>Coola bokningar!</title>

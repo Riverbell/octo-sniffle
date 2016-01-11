@@ -47,11 +47,15 @@ if(isset($_POST['user_email'], $_POST['password'])) {
 	<div class="container">
 		<h2>Logga in</h2>
 		<form action="" method="post">
-			<label>Användarnamn:</label>
-			<input id="name" name="user_email" placeholder="user_email" type="text">
-			<label>Lösenord:</label>
-			<input id="password" name="password" placeholder="**********" type="password">
-			<input name="submit" type="submit" value="Logga in">
+			<p>
+				<label>Email:</label>
+				<input id="name" name="user_email" type="text">
+			</p>
+			<p>
+				<label>Lösenord:</label>
+				<input id="password" name="password" type="password">
+			</p>
+			<input class="submit_button" name="submit" type="submit" value="Logga in">
 			<span><?php echo $error; ?></span>
 		</form>
 	</div>
