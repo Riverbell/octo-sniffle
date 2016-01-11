@@ -48,29 +48,34 @@
 	   
 	        // Store the result we want by appending strings
 	        $event_info = "
-	    		<p>Eventnamn: $event_name</p>
-				<p>Startdatum: $startdate</p>
-				<p>Starttid: $starttime</p>
-				<p>Arena: $venue</p>
-				<p>Arrangör: $creator</p>
-				<p>Kategori: $category</p>
-				<p>Totalt Antal Biljetter: $total_tickets</p>
-				<p>Antal Tillgängliga Biljetter: $available_tickets</p>
+		    	<h2>$event_name</h2>
+	    		<ul>
+					<li>Startdatum: $startdate</li>
+					<li>Starttid: $starttime</li>
+					<li>Arena: $venue</li>
+					<li>Arrangör: $creator</li>
+					<li>Kategori: $category</li>
+					<li>Totalt Antal Biljetter: $total_tickets</li>
+					<li>Antal Tillgängliga Biljetter: $available_tickets</li>
+				</ul>
 				";
 
 	    	$booking_form = "<form action='book_event_process.php' method='post'>
 					<input type='hidden' value='$event_id' name='event_id'/>
-					<select name='numberOfTickets'>
-						<option value='1'>1</option>
-						<option value='2'>2</option>
-						<option value='3'>3</option>
-						<option value='4'>4</option>
-						<option value='5'>5</option>
-						<option value='6'>6</option>
-						<option value='7'>7</option>
-						<option value='8'>8</option>
-					</select>
-					<input type='submit' value='Boka'/>
+					<p>
+						Välj antal biljetter: 
+						<select name='numberOfTickets'>
+							<option value='1'>1</option>
+							<option value='2'>2</option>
+							<option value='3'>3</option>
+							<option value='4'>4</option>
+							<option value='5'>5</option>
+							<option value='6'>6</option>
+							<option value='7'>7</option>
+							<option value='8'>8</option>
+						</select>
+						</p>
+					<input class='submit_button' type='submit' value='Boka'/>
 			</form>
 	    	";
 
