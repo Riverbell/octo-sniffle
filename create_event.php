@@ -100,7 +100,7 @@
 				<option value='5'>Barn</option>
 			</select>
 			</p>
-			<input type="submit"/>
+			<input class="submit_button" type="submit" value="Skapa"/>
 			<span><?php echo $error; ?></span>
 		</form>
 		<?php

@@ -1,11 +1,21 @@
-body { 
-	background-color: lightblue;
-	font-family: sans-serif;
-}
+/* externa fonter */
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700);
 
+body { 
+	background-color: #eee;
+	font-family: 'Raleway';
+}
+input {
+	font-family: 'Raleway';
+}
+/* standardlänkar, och besökta länkar */
 a, a:visited {
 	color: blue;
 	text-decoration: none;
+}
+/* mouse hover på standardlänkar */
+a:hover {
+	text-decoration: underline;
 }
 
 .container {
@@ -13,4 +23,36 @@ a, a:visited {
 	padding: 50px;
 	margin: 20px auto;
 	width: 50%;
+}
+
+/* submitknapp, typ 'boka', 'lägg i favoriter' etc */ 
+.submit_button, .submit_button_delete {
+	background-color: lightseagreen;
+	padding: 7px 10px; /* 7px top&bottom, 10px right&left*/
+	border: none;
+	color: #fff;
+	cursor: pointer; /* så att musen blir en pekare */
+}
+
+/* deleteknapp, samma som ovan men röd */
+.submit_button_delete {
+	background-color: firebrick;
+}
+
+/* mouse hover på submitknapp */
+.submit_button:hover {
+	background-color: darkcyan;
+}
+
+/* mouse hover på deleteknapp */
+.submit_button_delete:hover {
+	background-color: darkred;
+}
+
+form {
+	width: 100%;
+	text-align: right;
+}
+form p, form h2, form h3, form#search {
+	text-align: left;
 }

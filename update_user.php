@@ -118,7 +118,7 @@
 		        	<p>Nytt lösenord igen: 
 		        		<input type='password' name='new_password_again' placeholder='***'/>
 		        	</p>
-		        	<input type='submit' value='Spara'/>
+		        	<input class='submit_button' type='submit' value='Spara'/>
 	        	</form>
 		<?php
 			echo $update_result;

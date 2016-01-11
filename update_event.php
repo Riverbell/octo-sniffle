@@ -70,7 +70,7 @@
 					<p>Kategori ID:
 					<input type='text' name='input_categoryID' value='$category'/>
 					</p>
-					<input type='submit'/>
+					<input class='submit_button' type='submit' value='Spara'/>
 			</form>
 	    	";
 

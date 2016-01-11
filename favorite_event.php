@@ -5,7 +5,7 @@
 		}
 		$action = $_GET[act];
 		$event_id = $_GET[event_id];
-		
+
 		//Connecting to sql db.
 		$link = mysqli_connect('localhost', 'emmabac', 'emmabac-xmlpub13', 'emmabac');
 
@@ -43,7 +43,7 @@
 
 				}
 
-				$favorite_result = "<input type='button' value='Ta bort från favoriter' onclick = \"ajaxFunction($event_id, fav_sub_$event_id, 'del')\"/>";
+				$favorite_result = "<input class='submit_button_delete' type='button' value='Ta bort från favoriter' onclick = \"ajaxFunc_favEvent($event_id, fav_sub_$event_id, 'del')\"/>";
 				echo $favorite_result;
 			}
 		} elseif ( $action == 'del' ) {
@@ -74,7 +74,7 @@
 
 				}
 
-				$favorite_result = "<input type='button' value='Lägg i favoriter' onclick = \"ajaxFunction($event_id, fav_sub_$event_id, 'add')\"/>";
+				$favorite_result = "<input class='submit_button' type='button' value='Lägg i favoriter' onclick = \"ajaxFunc_favEvent($event_id, fav_sub_$event_id, 'add')\"/>";
 				echo $favorite_result;
 
 			}

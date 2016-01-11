@@ -48,7 +48,7 @@
 
 		        	<form action='update_user.php' method='post'>
 						<input type='hidden' value='{$user_email}' name='user_id'/>
-						<input type='submit' value='Ändra'/>
+						<input class='submit_button' type='submit' value='Ändra'/>
 					</form>
 				</div>
 	        ";
