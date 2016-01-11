@@ -42,7 +42,7 @@
         print utf8_decode("Det finns inte så många platser!");
     } else {
         //create the booking ==============================
-        $query ="INSERT INTO bookings (user_id, event_id, tickets) VALUES 
+        $query ="INSERT INTO bookings (user_email, event_id, tickets) VALUES 
         ('$booker_email', '$event_id', '$numberOfTickets')
         ";
 
