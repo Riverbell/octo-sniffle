@@ -5,8 +5,7 @@
 		}
 		$action = $_GET[act];
 		$event_id = $_GET[event_id];
-		echo $action;
-
+		
 		//Connecting to sql db.
 		$link = mysqli_connect('localhost', 'emmabac', 'emmabac-xmlpub13', 'emmabac');
 
@@ -35,8 +34,6 @@
 						('$_SESSION[name]', '$_GET[event_id]')
 					";
 
-				echo $query;
-
 				//Execute the query
 				//$error_message = "Du har redan lagt denna bland dina favoriter. <a href='index.php'> Gå tillbaka </a>";
 
@@ -46,8 +43,7 @@
 
 				}
 
-				$favorite_result = "$event_id, fav_sub_$event_id, 'del'
-				<input type='button' value='Ta bort från favoriter' onclick = \"ajaxFunction($event_id, fav_sub_$event_id, 'del')\"/>";
+				$favorite_result = "<input type='button' value='Ta bort från favoriter' onclick = \"ajaxFunction($event_id, fav_sub_$event_id, 'del')\"/>";
 				echo $favorite_result;
 			}
 		} elseif ( $action == 'del' ) {
@@ -69,8 +65,6 @@
 						event_id = $event_id
 				";
 
-				echo $query;
-
 				//Execute the query
 				//$error_message = "Du har redan lagt denna bland dina favoriter. <a href='index.php'> Gå tillbaka </a>";
 
@@ -80,7 +74,7 @@
 
 				}
 
-				$favorite_result = "Borttagen! $event_id, fav_sub_$event_id, 'del' <input type='button' value='Lägg i favoriter' onclick = \"ajaxFunction($event_id, fav_sub_$event_id, 'add')\"/>";
+				$favorite_result = "<input type='button' value='Lägg i favoriter' onclick = \"ajaxFunction($event_id, fav_sub_$event_id, 'add')\"/>";
 				echo $favorite_result;
 
 			}
