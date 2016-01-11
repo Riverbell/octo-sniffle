@@ -10,85 +10,18 @@
 ?>
 <html>
 	<?php
-		//Connecting to sql db.
-		$link = mysqli_connect('localhost', 'emmabac', 'emmabac-xmlpub13', 'emmabac');
-
-	    // Check connection
-	    if (mysqli_connect_errno()) {
-	        printf("Connect failed: %s\n", mysqli_connect_error());
-	        exit();
-	    }
-
-	    $query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, 
-	    		  startdate, starttime, user_email, category_id, user_name, category_name,
-	    		  booking_id, tickets
-	    		  FROM bookings NATURAL JOIN events NATURAL JOIN users NATURAL JOIN categories
-	    		  WHERE user_id = '$user_email'
-	    ";
-
-		// Execute the query
-	    if (($result = mysqli_query($link, $query)) === false) {
-	       printf("Query failed: %s<br />\n%s", $query, mysqli_error($link));
-	       exit();
-	    }
-
-	    $booking_info = '';
-	    while ($line = $result->fetch_object()) {
-	        // Store results from each row in variables
-	        $event_id = $line->event_id;
-	        $event_name = $line->event_name;
-	        $total_tickets = $line->total_tickets;
-	        $available_tickets = $line->available_tickets;
-	        $venue = $line->venue;
-	        $startdate = $line->startdate;
-	        $starttime = $line->starttime;
-	        $category = $line->category_name;
-	        $creator = $line->user_name;
-	        $booking_id = $line->booking_id;
-	        $numberOfTickets = $line->tickets;
-
-	        $event_id = utf8_encode($event_id);
-	        $event_name = utf8_encode($event_name);
-	        $venue = utf8_encode($venue);
-	        $category = utf8_encode($category);
-	        $creator = utf8_encode($creator);
-
-	    
-	   		$booking_info .= "
-	   			<div class='container'>
-		   			<h4>Bokningsnummer: $booking_id</h4>
-		   			<p>Antal biljetter: $numberOfTickets</p>
-		    		<p>Eventnamn: $event_name</p>
-					<p>Startdatum: $startdate</p>
-					<p>Starttid: $starttime</p>
-					<p>Arena: $venue</p>
-					<p>Arrangör: $creator</p>
-					<p>Kategori: $category</p>
-					<p>Lediga platser: $available_tickets av $total_tickets</p>
-					<form action='update_booking.php' method='post'>
-						<input type='hidden' value='{$event_id}' name='change_booking'/>
-						<input type='hidden' value='{$booking_id}' name='booking_id'/>
-						<input type='submit' value='Ändra bokning'/>
-					</form>
-					<form action='delete_booking.php' method='post'>
-						<input type='hidden' value='{$event_id}' name='delete_booking'/>
-						<input type='hidden' value='{$booking_id}' name='booking_id'/>
-						<input type='submit' value='Ta bort bokning'/>
-					</form>
-				</div>
-				";
-
-	    } // end while
+		
 
 	    $user_name = utf8_encode($user_name);
 
-	    $profile = "<div class='container'>
-	    				<h2>Hej $user_name!</h2>
-	    				<h3>Här är din profil</h3>
-	    				<p>Medlemstyp: $user_type</p>
-	    			</div>
+	    $profile = "<h2>Hej $user_name!</h2>
+	    			<h3>Här är din profil</h3>
+	    			<p>Medlemstyp: $user_type</p>
 	    			";
 
+	    //$bookings = "<input id='bookings' type='button' value='Se mina bokningar' onclick='ajaxFunction()'/>";
+
+	    //$fav_events = "<p><input id='fav_events' type='button' value='Se mina favoriter' onclick='ajaxFunction()'/></p>";
 	?>
 	<head>
 		<title>Profil</title>
@@ -98,10 +31,66 @@
 	<body>
 		<?php
 		include 'menu.php';
+		print("<div class='container'>");
 		print $profile;
-        print $booking_info;
-    ?>
-
+		?>
+		<form>
+			<input type='button' onclick='ajaxFunction("bookings", "<?php print $user_email; ?>")' value='Se mina bokningar'/>
+		</form>
 	
+		<form>
+			<input type='button' onclick='ajaxFunction("fav_events")' value='Se mina favoriter'/>
+		</form>
+		<?php
+		print("</div>");
+    	?>
+		<div id='nav_result'></div>
+		<script language = "javascript" type = "text/javascript">
+		        //Browser Support Code
+
+		        function ajaxFunction(action, user_email){
+		           var ajaxRequest;  // The variable that makes Ajax possible!
+		           
+		           try {
+		              // Opera 8.0+, Firefox, Safari
+		              ajaxRequest = new XMLHttpRequest();
+		           }
+		           catch (e) {
+		              // Internet Explorer Browsers
+		              try {
+		                 ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		              }
+		              catch (e) {
+		                 try{
+		                    ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+		                 }
+		                 catch (e){
+		                    // Something went wrong
+		                       alert("Your browser broke!");
+		                       return false;
+		                 }
+		              }
+		           }
+		           
+		           // Create a function that will receive data 
+		           // sent from the server and will update
+		           // div section in the same page.
+		           
+		           ajaxRequest.onreadystatechange = function(){
+		              if(ajaxRequest.readyState== 4){
+		                 var ajaxDisplay = document.getElementById('nav_result');
+		                 ajaxDisplay.innerHTML = ajaxRequest.responseText;
+		              }
+		           }
+		           
+		           // Now get the value from user and pass it to
+		           // server script.
+
+		           
+		           var queryString = "?user_email=" + user_email + "&action=" + action;
+		           ajaxRequest.open("GET", "profile_process.php" + queryString, true);
+		           ajaxRequest.send(null); 
+		        }
+		  </script>
 	</body>
 </html>
