@@ -15,7 +15,8 @@
 
 			<script language = "javascript" type = "text/javascript">
             <xsl:text disable-output-escaping="yes">
-            function ajaxFunction(id, ajaxDisplay, act){
+            // fav event ====================================
+            function ajaxFunc_favEvent(id, ajaxDisplay, act){
                var ajaxRequest; 
                
                try {
@@ -62,6 +63,59 @@
                ajaxRequest.open("GET", "favorite_event.php" + queryString, true);
                ajaxRequest.send(null); 
             }
+
+            // search event =======================================
+        	function runSearch(e) {
+			    if (e.keyCode == 13) {
+			        ajaxFunc_search();
+			        return false;
+			    }
+			}
+
+            function ajaxFunc_search(){
+               var ajaxRequest;  // The variable that makes Ajax possible!
+               
+               try {
+                  // Opera 8.0+, Firefox, Safari
+                  ajaxRequest = new XMLHttpRequest();
+               }
+               catch (e) {
+                  // Internet Explorer Browsers
+                  try {
+                     ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+                  }
+                  catch (e) {
+                     try{
+                        ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                     }
+                     catch (e){
+                        // Something went wrong
+                           alert("Your browser broke!");
+                           return false;
+                     }
+                  }
+               }
+               
+               // Create a function that will receive data 
+               // sent from the server and will update
+               // div section in the same page.
+               
+               ajaxRequest.onreadystatechange = function(){
+                  if(ajaxRequest.readyState == 4){
+                     var ajaxDisplay = document.getElementById('search_result');
+                     ajaxDisplay.innerHTML = ajaxRequest.responseText;
+                  }
+               }
+               
+               // Now get the value from user and pass it to
+               // server script.
+               
+               var search_input = document.getElementById('search_input').value;
+               var queryString = "?search_input=" + search_input ;
+               console.log(queryString);
+               ajaxRequest.open("GET", "search_event_process.php" + queryString, true);
+               ajaxRequest.send(null); 
+            }
          //-->
      </xsl:text>
       </script>
@@ -89,6 +143,19 @@
 	</li>
 </xsl:template>
 
+<xsl:template match="events">
+	<div class="container">
+		<h2>Sök event</h2>
+		<form id="search">
+			<input id='search_input' name='event_name' placeholder='Sökord' type='text' onkeypress='return runSearch(event)'/>
+			<input class='submit_button' id='butt' type='button' onclick = 'ajaxFunc_search()' value='Sök' />
+		</form>
+	</div>
+	<div id="search_result">
+		<xsl:apply-templates/>
+	</div>
+</xsl:template>
+
 <xsl:template match="event">
 	<xsl:variable name="event_id" select="@id"/>
 	<div class="container">
@@ -102,7 +169,7 @@
 		<xsl:if test="@edit = 'ok'">
 			<form action="update_event.php" method="post">
 				<input type="hidden" value="{$event_id}" name="event_id"/>
-				<input type="submit" value="Ändra"/>
+				<input class="submit_button" type="submit" value="Ändra"/>
 			</form>
 		</xsl:if>
 
@@ -110,7 +177,7 @@
 		<xsl:if test="@book = 'ok'">
 			<form action="book_event.php" method="post">
 				<input type="hidden" value="{$event_id}" name="event_id"/>
-				<input type="submit" value="Boka"/>
+				<input class="submit_button" type="submit" value="Boka"/>
 			</form>
 		</xsl:if>
 
@@ -119,7 +186,7 @@
 			<form id="fav_{$event_id}">
 				<input type="hidden" value="{$event_id}" name="event_id" id="fav_event_{$event_id}"/>
 				<div id="fav_sub_{$event_id}">
-					<input type="button" value="Ta bort från favoriter" onclick = "ajaxFunction({$event_id}, fav_sub_{$event_id}, 'del')"/>
+					<input class="submit_button_delete" type="button" value="Ta bort från favoriter" onclick = "ajaxFunc_favEvent({$event_id}, fav_sub_{$event_id}, 'del')"/>
 				</div>
 			</form>
 		</xsl:if>
@@ -127,7 +194,7 @@
 			<form id="fav_{$event_id}">
 				<input type="hidden" value="{$event_id}" name="event_id" id="fav_event_{$event_id}"/>
 				<div id="fav_sub_{$event_id}">
-					<input type="button" value="Lägg i favoriter" onclick = "ajaxFunction({$event_id}, fav_sub_{$event_id}, 'add')"/>
+					<input class="submit_button" type="button" value="Lägg i favoriter" onclick = "ajaxFunc_favEvent({$event_id}, fav_sub_{$event_id}, 'add')"/>
 				</div>
 			</form>
 		</xsl:if>

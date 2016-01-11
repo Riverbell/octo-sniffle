@@ -1,6 +1,7 @@
 <?php include 'prefix.php';?>
 <?php
         session_start();
+        
 ?>
 <?xml version="1.0" ?>
 <!DOCTYPE bookingSystem [
@@ -26,23 +27,25 @@
 
     // FAVORITES ==============================================
     //check fav events
-    $user_email = $_SESSION['name'];
-    $query = "SELECT event_id FROM favorites WHERE user_email = '$user_email'";
+    if(isset($_SESSION['name']) and $_SESSION['user_type'] == 'user') {
+        $user_email = $_SESSION['name'];
+        
+        $query = "SELECT event_id FROM favorites WHERE user_email = '$user_email'";
 
-    // Execute the query
-    if (($result = mysqli_query($link, $query)) === false) {
-       printf("Query failed: %s<br />\n%s", $query, mysqli_error($link));
-       exit();
+        // Execute the query
+        if (($result = mysqli_query($link, $query)) === false) {
+           printf("Query failed: %s<br />\n%s", $query, mysqli_error($link));
+           exit();
+        }
+
+        $fav_events = array();
+        $i = 0;
+        while($row = $result->fetch_object()) {
+            $fav_event = $row->event_id;
+            $fav_events[$i] = $fav_event;
+            $i = $i + 1;
+        }
     }
-
-    $fav_events = array();
-    $i = 0;
-    while($row = $result->fetch_object()) {
-        $fav_event = $row->event_id;
-        $fav_events[$i] = $fav_event;
-        $i = $i + 1;
-    }
-
     
 
 
@@ -138,7 +141,7 @@
                 <available_tickets>$available_tickets</available_tickets>
             </event>";
             }
-    } 
+        } 
     } //end while
 
     // Free result and just in case encode result to utf8 before returning
@@ -163,7 +166,6 @@
             }
         }
     ?>
-    <menuItem link="search_event.php">Sök Event</menuItem>
     <menuItem link="profile.php">Profil</menuItem>
     <?php 
         print utf8_encode($menuItem);
