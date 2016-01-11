@@ -32,14 +32,14 @@
 
         $event_info .= "
         		<div class='container'>
-	    		<p>Eventnamn: $event_name</p>
-				<p>Startdatum: $startdate</p>
-				<p>Starttid: $starttime</p>
-				<p>Arena: $venue</p>
-				<p>Arrangör: $creator</p>
-				<p>Kategori: $category</p>
-				<p>Totalt Antal Biljetter: $total_tickets</p>
-				<p>Antal Tillgängliga Biljetter: $available_tickets</p>
+	    		<h2>$event_name</h2>
+	    		<ul>
+				<li>Datum: $startdate kl $starttime</li>
+				<li>Arena: $venue</li>
+				<li>Arrangör: $creator</li>
+				<li>Kategori: $category</li>
+				<li>Lediga platser: $available_tickets av $total_tickets</li>
+				<ul>
 				</div>
 				";
 	}
