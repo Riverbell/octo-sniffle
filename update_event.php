@@ -16,7 +16,7 @@
 	        exit();
 	    }
 
-	    $query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, category_id
+	    $query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, category_name
 	    		  FROM events
 	    		  WHERE event_id = '$_POST[event_id]'
 	    ";
@@ -37,7 +37,7 @@
 	        $venue = $line->venue;
 	        $startdate = $line->startdate;
 	        $starttime = $line->starttime;
-	        $category = $line->category_id;
+	        $category = $line->category_name;
 
 	        $event_id = utf8_encode($event_id);
 	        $event_name = utf8_encode($event_name);
@@ -47,9 +47,9 @@
 	   
 	        // Store the result we want by appending strings
 
-	    	$update_form = "<form action='update_event_process.php' method='post' accept-charset='utf-8'>
+	    	$update_form = "<form action='' method='post' accept-charset='utf-8'>
 					<input type='hidden' value='$event_id' name='event_id'/>
-					<p>Event Namn:
+					<p>Eventnamn:
 					<input type='text' name='input_name' value='$event_name'/>
 					</p>
 					<p>Totalt Antal Biljetter:
@@ -67,14 +67,42 @@
 					<p>Starttid:
 					<input type='text' name='input_starttime' value='$starttime'/>
 					</p>
-					<p>Kategori ID:
-					<input type='text' name='input_categoryID' value='$category'/>
+					<p>Kategori:
+					<select name='input_categoryID'>
+						<option value='sport'";
+						if ($category == 'sport') {
+			        			$update_form .= "selected";
+			        		}
+					$update_form .= ">Sport</option>
+						<option value='musik'";
+						if ($category == 'musik') {
+			        			$update_form .= "selected";
+			        		}
+					$update_form .= ">Musik</option>
+						<option value='teater'";
+						if ($category == 'teater') {
+			        			$update_form .= "selected";
+			        		}
+					$update_form .= ">Teater</option>
+						<option value='underhållning'";
+						if ($category == 'underhållning') {
+			        			$update_form .= "selected";
+			        		}
+					$update_form .= ">Underhållning</option>
+						<option value='barn'";
+						if ($category == 'barn') {
+			        			$update_form .= "selected";
+			        		}
+					$update_form .= ">Barn</option>
+					</select>
 					</p>
 					<input class='submit_button' type='submit' value='Spara'/>
 			</form>
 	    	";
 
-	    }
+	    } // end while
+
+	    
 	?>
 	<head>
 		<title>Uppdatera event</title>
@@ -86,6 +114,36 @@
 		include 'menu.php';
 		print "<div class='container'>";
         print $update_form;
+
+        if(isset($_POST['input_name'], $_POST['input_totalTickets'], $_POST['input_availableTickets'], $_POST['input_venue'], $_POST['input_startdate'], $_POST['input_starttime'], $_POST['input_categoryID'])) {
+	    	$event_name = utf8_decode($_POST[input_name]);
+		    $venue = utf8_decode($_POST[input_venue]);
+		    $category = utf8_decode($_POST[input_categoryID]);
+
+		    //$event_name = $_POST[input_name];
+		    //$venue = $_POST[input_venue];
+		    //$category = $_POST[input_categoryID];
+
+
+		    $query = "UPDATE events
+		    SET event_name = '$event_name', total_tickets = '$_POST[input_totalTickets]', 
+		    available_tickets = '$_POST[input_availableTickets]',
+		    venue = '$venue', startdate = '$_POST[input_startdate]', 
+		    starttime = '$_POST[input_starttime]', 
+		    category_name = '$category'
+		    WHERE event_id = $_POST[event_id]
+		    ";
+
+			// Execute the query
+		    if (($result = mysqli_query($link, $query)) === false) {
+		       printf("Query failed: %s<br />\n%s", $query, mysqli_error($link));
+		       exit();
+		    }
+		    else {
+		        print "<p>Event uppdaterat!</p>";
+		    }
+	    } //end if
+
         print "</div>";
     ?>
 

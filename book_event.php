@@ -15,9 +15,8 @@
 	        exit();
 	    }
 
-	    $query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, user_email, category_id, user_name, category_name
-            FROM events NATURAL JOIN users
-            NATURAL JOIN categories
+	    $query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, creator_email, category_name, user_name
+            FROM events JOIN users ON events.creator_email = users.user_email
 	    	WHERE event_id = '$_POST[event_id]'
 	    ";
 
@@ -38,7 +37,7 @@
 	        $startdate = $line->startdate;
 	        $starttime = $line->starttime;
 	        $category = $line->category_name;
-	        $creator = $line->user_email;
+	        $creator = $line->user_name;
 
 	    	$event_name = utf8_encode($event_name);
 	        $venue = utf8_encode($venue);
@@ -90,7 +89,7 @@
 	<body>
 		<?php
 		include 'menu.php';
-		print ("<div class='container'");
+		print ("<div class='container'>");
         print $event_info;
         print $booking_form;
         print ("</div>");

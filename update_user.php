@@ -68,8 +68,7 @@
 			       exit();
 			    }
 			    else {
-			        $update_result = "<p>Success!
-			            <a href='/~emmabac/DM2517/project/all_users.php'>Gå tillbaka</a></p>";
+			        $update_result = "<p>Användare uppdaterad!</p>";
 			    }
 		    } else if ( $new_password != $new_password_again ) {
 		    	$update_result = "Lösenorden matchar inte!";

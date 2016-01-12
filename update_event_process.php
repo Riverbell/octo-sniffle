@@ -34,7 +34,7 @@
     available_tickets = '$_POST[input_availableTickets]',
     venue = '$venue', startdate = '$_POST[input_startdate]', 
     starttime = '$_POST[input_starttime]', 
-    category_id = '$category'
+    category_name = '$category'
     WHERE event_id = $_POST[event_id]
     ";
 

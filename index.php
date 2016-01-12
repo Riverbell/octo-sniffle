@@ -43,9 +43,8 @@
 
 
 // EVENTS ========================================================
-    $query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, user_email, category_id, user_name, category_name
-            FROM events NATURAL JOIN users
-            NATURAL JOIN categories
+    $query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, creator_email, category_name, user_name
+            FROM events JOIN users ON events.creator_email = users.user_email
             ORDER BY startdate, starttime";
 
     // Execute the query
@@ -67,7 +66,7 @@
         $starttime = $line->starttime;
         $creator = $line->user_name;
         $category = $line->category_name;
-        $creator_id = $line->user_email;
+        $creator_id = $line->creator_email;
 
     
         //if there is no user logged in

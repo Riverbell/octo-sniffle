@@ -93,11 +93,11 @@
 			</p>
 			<p>Kategori:
 			<select name='input_categoryID'>
-				<option value='1'>Sport</option>
-				<option value='2'>Musik</option>
-				<option value='3'>Teater</option>
-				<option value='4'>Underhållning</option>
-				<option value='5'>Barn</option>
+				<option value='sport'>Sport</option>
+				<option value='musik'>Musik</option>
+				<option value='teater'>Teater</option>
+				<option value='underhållning'>Underhållning</option>
+				<option value='barn'>Barn</option>
 			</select>
 			</p>
 			<input class="submit_button" type="submit" value="Skapa"/>
@@ -114,7 +114,7 @@
 			        exit();
 			    }
 
-			    $query = "INSERT INTO events (event_name, total_tickets, available_tickets, venue, startdate, starttime, user_email, category_id) 
+			    $query = "INSERT INTO events (event_name, total_tickets, available_tickets, venue, startdate, starttime, creator_email, category_name) 
 			    	 	  VALUES ('$_POST[input_name]', '$_POST[input_totalTickets]','$_POST[input_availableTickets]','$_POST[input_venue]','$_POST[input_startdate]','$_POST[input_starttime]','$_POST[input_creatorEmail]','$_POST[input_categoryID]')
 			    ";
 
@@ -123,8 +123,7 @@
 			       printf("Query failed: %s<br />\n%s", $query, mysqli_error($link));
 			    }
 			    else {
-			        print utf8_decode("<p>Event skapat!</p>
-			            <a href='/~emmabac/DM2517/project/index.php'>Gå tillbaka</a>");
+			        print "<p>Event skapat!</p>";
 			    }
 			}
 		?>
