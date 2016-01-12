@@ -12,6 +12,30 @@
     <!ENTITY Ouml "&#214;">
     <!ENTITY ouml "&#246;">
     <!ENTITY amp "&#38;">
+
+    <!ELEMENT bookingSystem (menu, title, events)>
+    <!ELEMENT menu (menuItem*)>
+    <!ELEMENT menuItem (#PCDATA)>
+    <!ATTLIST menuItem link CDATA #REQUIRED>
+
+    <!ELEMENT title (#PCDATA)>
+
+    <!ELEMENT events (event*)>
+    <!ELEMENT event (name, startdate, starttime, venue, creator, category, total_tickets, available_tickets)>
+
+    <!ATTLIST event id CDATA #REQUIRED
+    edit CDATA #REQUIRED
+    book CDATA #REQUIRED
+    favorites CDATA #REQUIRED>
+
+    <!ELEMENT name (#PCDATA)>
+    <!ELEMENT startdate (#PCDATA)>
+    <!ELEMENT starttime (#PCDATA)>
+    <!ELEMENT venue (#PCDATA)>
+    <!ELEMENT creator (#PCDATA)>
+    <!ELEMENT category (#PCDATA)>
+    <!ELEMENT total-tickets (#PCDATA)>
+    <!ELEMENT available-tickets (#PCDATA)>
 ]>
 
 <?php
@@ -75,7 +99,6 @@
         $creator = $line->user_name;
         $category = $line->category_name;
         $creator_id = $line->user_email;
-        //$favorite_id = $line->favorite_id;
 
     
         //if there is no user logged in
