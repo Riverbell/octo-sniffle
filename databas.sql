@@ -7,8 +7,7 @@ CREATE TABLE users (
 
 
 CREATE TABLE categories (
-	category_id INT PRIMARY KEY,
-	category_name VARCHAR(20)
+	category_name VARCHAR(20) PRIMARY KEY
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE events (
@@ -19,10 +18,10 @@ CREATE TABLE events (
 	venue VARCHAR(50),
 	startdate DATE,
 	starttime TIME,
-	user_email VARCHAR(40),
-	category_id INT, 
-	FOREIGN KEY (user_email) REFERENCES users(user_email),
-	FOREIGN KEY (category_id) REFERENCES categories(category_id)
+	creator_email VARCHAR(40),
+	category_name VARCHAR(20), 
+	FOREIGN KEY (creator_email) REFERENCES users(user_email),
+	FOREIGN KEY (category_name) REFERENCES categories(category_name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE bookings (
@@ -54,11 +53,11 @@ CREATE TABLE favorites (
 	
 
 INSERT INTO categories VALUES
-(1, 'sport'),
-(2, 'musik'),
-(3, 'teater'),
-(4, 'underhållning'),
-(5, 'barn')
+('sport'),
+('musik'),
+('teater'),
+('underhållning'),
+('barn')
 ;
 
 INSERT INTO users (user_email, user_name, user_password, user_type) VALUES
@@ -74,14 +73,14 @@ INSERT INTO users (user_email, user_name, user_password, user_type) VALUES
 ;
 
 
-INSERT INTO events (event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, user_email, category_id) VALUES
-(1, 'Bear With Us Live @ META', 149, 149, 'META', '2015-12-31', '22:00:00',  'bearwithusmusic@gmail.com', 2),
-(2, 'Pippi på Äventyr', 200, 150, 'Astrid Lindgrens Värld', '2016-04-13', '13:30:00',  'astridsworld@gmail.com', 5),
-(3, 'AIK vs Brommapojkarna', 45000, 30000, 'Friends Arena', '2016-03-26', '20:45:00', 'aik@aik.se', 1),
-(4, 'AIK vs IFK Norrköping', 45000, 40000, 'Friends Arena', '2016-04-27', '16:00:00', 'aik@aik.se', 1),
-(5, 'Torsdagspub!', 149, 149, 'META', '2016-01-21', '17:00:00', 'kbm@medieteknik.com', 4),
-(6, 'Bear With Us Unplugged', 300, 200, 'ROQ', '2016-02-14', '23:00:00', 'bearwithusmusic@gmail.com', 2),
-(7, 'Tentapub #2', 149, 149, 'META', '2016-01-16', '18:00:00', 'kbm@medieteknik.com', 4)
+INSERT INTO events (event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, creator_email, category_name) VALUES
+(1, 'Bear With Us Live @ META', 149, 149, 'META', '2015-12-31', '22:00:00',  'bearwithusmusic@gmail.com', 'musik'),
+(2, 'Pippi på Äventyr', 200, 150, 'Astrid Lindgrens Värld', '2016-04-13', '13:30:00',  'astridsworld@gmail.com', 'barn'),
+(3, 'AIK vs Brommapojkarna', 45000, 30000, 'Friends Arena', '2016-03-26', '20:45:00', 'aik@aik.se', 'sport'),
+(4, 'AIK vs IFK Norrköping', 45000, 40000, 'Friends Arena', '2016-04-27', '16:00:00', 'aik@aik.se', 'sport'),
+(5, 'Torsdagspub!', 149, 149, 'META', '2016-01-21', '17:00:00', 'kbm@medieteknik.com', 'underhållning'),
+(6, 'Bear With Us Unplugged', 300, 200, 'ROQ', '2016-02-14', '23:00:00', 'bearwithusmusic@gmail.com', 'musik'),
+(7, 'Tentapub #2', 149, 149, 'META', '2016-01-16', '18:00:00', 'kbm@medieteknik.com', 'underhållning')
 ;
 
 
