@@ -121,7 +121,6 @@
       </script>
 		</head>
 		<body>
-			<h1><xsl:value-of select="title"/></h1>
 			<xsl:apply-templates/>
 
 		</body>
@@ -130,7 +129,7 @@
 
 <xsl:template match="menu">
 	<div class="menu">
-		<h2>Meny</h2>
+		<h2><xsl:value-of select="../title"/></h2>
 		<ul>
 			<xsl:apply-templates/>
 		</ul>
@@ -144,7 +143,7 @@
 </xsl:template>
 
 <xsl:template match="events">
-	<div class="container">
+	<div class="container" id="search_container">
 		<h2>Sök event</h2>
 		<form id="search">
 			<input id='search_input' name='event_name' placeholder='Sökord' type='text' onkeypress='return runSearch(event)'/>

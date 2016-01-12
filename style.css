@@ -4,6 +4,7 @@
 body { 
 	background-color: #eee;
 	font-family: 'Raleway';
+	padding-top: 40px;
 }
 input {
 	font-family: 'Raleway';
@@ -21,18 +22,36 @@ a:hover { /* mouse hover på standardlänkar */
 /* 
 * meny ============================================
 */
+.menu {
+	width: 100%;
+	height: 47px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: MediumTurquoise;
+}
+.menu h2 {
+	display: inline-block;
+	padding: 0;
+	margin: 0 17px;
+	vertical-align: middle;
+	font-size: 18px;
+	color: #fff;
+}
 .menu ul {
 	padding: 0;
 	margin: 0;
+	display: inline-block;
 	list-style-type: none; /* tar bort plupparna */
 }
 
 .menu li {
 	display: inline-block; /* så att varje li blir ett block 
 							och de ligger sida vid sida */
-	padding: 8px 12px;  /*  top&bottom, right&left*/
-	background-color: MediumTurquoise;
+	padding: 14px 17px;  /*  top&bottom, right&left*/
+	background-color: none;
 	cursor: pointer; 
+	vertical-align: middle;
 }
 /* länkarna i meny-listobjekten */
 .menu li a, .menu li a:visited {
