@@ -14,12 +14,11 @@
     if($action == 'bookings'){
 
 	    $query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, 
-	    		  startdate, starttime, user_email, category_id, category_name,
+	    		  startdate, starttime, category_name,
 	    		  booking_id, tickets
 	    		  FROM bookings NATURAL JOIN events NATURAL JOIN users NATURAL JOIN categories
 	    		  WHERE user_email = '$user_email' AND user_type = 'user'
 	    ";
-
 
 		// Execute the query
 	    if (($result = mysqli_query($link, $query)) === false) {
@@ -38,7 +37,7 @@
 	        $startdate = $line->startdate;
 	        $starttime = $line->starttime;
 	        $category = $line->category_name;
-	        $creator = $line->user_name;
+	        $creator = $line->creator_name;
 	        $booking_id = $line->booking_id;
 	        $numberOfTickets = $line->tickets;
 
@@ -48,7 +47,6 @@
 	        $category = utf8_encode($category);
 	        $creator = utf8_encode($creator);
 
-	    
 	   		$booking_info .= "
 	   			<div class='container'>
 		   			<h4>Bokningsnummer: $booking_id</h4>
@@ -80,9 +78,9 @@
 	elseif($action == 'fav_event'){
 
 		$query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, 
-	    		  startdate, starttime, user_email, category_id, category_name,
+	    		  startdate, starttime, category_name,
 	    		  favorite_id
-	    		  FROM favorites NATURAL JOIN events NATURAL JOIN users NATURAL JOIN categories
+	    		  FROM favorites NATURAL JOIN events NATURAL JOIN users
 	    		  WHERE user_email = '$user_email' AND user_type = 'user'
 	    		  ";
 
