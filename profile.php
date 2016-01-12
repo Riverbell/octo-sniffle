@@ -19,32 +19,21 @@
 	    			<p>Medlemstyp: $user_type</p>
 	    			";
 
-	    //$bookings = "<input id='bookings' type='button' value='Se mina bokningar' onclick='ajaxFunction()'/>";
+	    if($usertype='user'){
 
-	    //$fav_events = "<p><input id='fav_events' type='button' value='Se mina favoriter' onclick='ajaxFunction()'/></p>";
+	    }
+
+	    $bookings = "<input class='submit_button' type='button' value='Se mina bokningar' onclick='ajaxFunction(\"bookings\", \"$user_email\")'/>";
+
+	    $fav_events = "<p><input class='submit_button' type='button' value='Se mina favoriter' onclick='ajaxFunction(\"fav_events\", \"$user_email\")'/></p>";
+
+	    $created_events = "<input class='submit_button' type='button' value='Se skapade event' onclick='ajaxFunction(\"created_events\", \"$user_email\")'/>";
+
 	?>
 	<head>
 		<title>Profil</title>
 	    <link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
 	    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	</head>
-	<body>
-		<?php
-		include 'menu.php';
-		print("<div class='container'>");
-		print $profile;
-		?>
-		<form>
-			<input type='button' onclick='ajaxFunction("bookings", "<?php print $user_email; ?>")' value='Se mina bokningar'/>
-		</form>
-	
-		<form>
-			<input type='button' onclick='ajaxFunction("fav_events")' value='Se mina favoriter'/>
-		</form>
-		<?php
-		print("</div>");
-    	?>
-		<div id='nav_result'></div>
 		<script language = "javascript" type = "text/javascript">
 		        //Browser Support Code
 
@@ -88,9 +77,27 @@
 
 		           
 		           var queryString = "?user_email=" + user_email + "&action=" + action;
+		           console.log(queryString);
 		           ajaxRequest.open("GET", "profile_process.php" + queryString, true);
 		           ajaxRequest.send(null); 
 		        }
 		  </script>
+	</head>
+	<body>
+		<?php
+		include 'menu.php';
+		print("<div class='container'>");
+		print $profile;
+		if($user_type == 'user'){
+			print $bookings;
+			print $fav_events;
+		}
+
+		else if($user_type == 'creator'){
+			print $created_events;
+		}
+		print("</div>");
+    	?>
+		<div id='nav_result'></div>
 	</body>
 </html>
