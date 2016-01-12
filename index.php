@@ -4,39 +4,8 @@
         
 ?>
 <?xml version="1.0" ?>
-<!DOCTYPE bookingSystem [
-    <!ENTITY Aring "&#197;">
-    <!ENTITY aring "&#229;">
-    <!ENTITY Auml "&#196;">
-    <!ENTITY auml "&#228;">
-    <!ENTITY Ouml "&#214;">
-    <!ENTITY ouml "&#246;">
-    <!ENTITY amp "&#38;">
+<!DOCTYPE bookingSystem SYSTEM "index.dtd">
 
-    <!ELEMENT bookingSystem (menu, title, events)>
-    <!ELEMENT menu (menuItem*)>
-    <!ELEMENT menuItem (#PCDATA)>
-    <!ATTLIST menuItem link CDATA #REQUIRED>
-
-    <!ELEMENT title (#PCDATA)>
-
-    <!ELEMENT events (event*)>
-    <!ELEMENT event (name, startdate, starttime, venue, creator, category, total_tickets, available_tickets)>
-
-    <!ATTLIST event id CDATA #REQUIRED
-    edit CDATA #REQUIRED
-    book CDATA #REQUIRED
-    favorites CDATA #REQUIRED>
-
-    <!ELEMENT name (#PCDATA)>
-    <!ELEMENT startdate (#PCDATA)>
-    <!ELEMENT starttime (#PCDATA)>
-    <!ELEMENT venue (#PCDATA)>
-    <!ELEMENT creator (#PCDATA)>
-    <!ELEMENT category (#PCDATA)>
-    <!ELEMENT total-tickets (#PCDATA)>
-    <!ELEMENT available-tickets (#PCDATA)>
-]>
 
 <?php
     //http://xml.csc.kth.se/~emmabac/DM2517/project/start.php
