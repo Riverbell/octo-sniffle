@@ -10,7 +10,6 @@
         printf("Connect failed: %s\n", mysqli_connect_error());
         exit();
     }
-
     if($action == 'bookings'){
 
 	    $query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, 
@@ -74,14 +73,11 @@
 	    } // end while
 	    echo $booking_info;
 	}
+	if($action == 'fav_events'){
 
-	elseif($action == 'fav_event'){
-
-		$query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, 
-	    		  startdate, starttime, category_name,
-	    		  favorite_id
-	    		  FROM favorites NATURAL JOIN events NATURAL JOIN users
-	    		  WHERE user_email = '$user_email' AND user_type = 'user'
+		$query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, category_name, favorite_id
+	    		  FROM events NATURAL JOIN favorites NATURAL JOIN users
+	    		  WHERE user_email = '$user_email'
 	    		  ";
 
 	    // Execute the query
@@ -101,7 +97,7 @@
 	        $startdate = $line->startdate;
 	        $starttime = $line->starttime;
 	        $category = $line->category_name;
-	        $creator = $line->user_name;
+	       // $creator = $line->creator_name;
 	        $favorite_id = $line->favorite_id;
 	        
 
@@ -118,23 +114,19 @@
 						<li>Startdatum: $startdate</li>
 						<li>Starttid: $starttime</li>
 						<li>Arena: $venue</li>
-						<li>Arrangör: $creator</li>
+						<li>Arrangör: </li>
 						<li>Kategori: $category</li>
 						<li>Totalt Antal Biljetter: $total_tickets</li>
 						<li>Antal Tillgängliga Biljetter: $available_tickets</li>
 					</ul>
 				</div>
 				";
-			echo $fav_event_info;
 		}
-	}	
+		echo $fav_event_info;
+	} 
+	if($action == 'created_events'){
 
-	elseif($action == 'created_events'){
-
-		$query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, 
-	    		  startdate, starttime, user_email, user_name, category_id, category_name
-	    		  FROM events NATURAL JOIN users NATURAL JOIN categories
-	    		  WHERE user_email = '$user_email' AND user_type = 'creator'
+		$query = "SELECT * FROM events JOIN users ON events.creator_email=users.user_email WHERE events.creator_email='$user_email'
 	    		  ";
 
 	   	// Execute the query
