@@ -39,9 +39,8 @@
     // EVENTS =================================================
 	$search_input=$_GET['search_input'];
 	//print($event_name);
-	$query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, user_email, category_id, user_name, category_name
-            FROM events NATURAL JOIN users
-            NATURAL JOIN categories
+	$query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, startdate, starttime, creator_email, category_name, user_name
+            FROM events JOIN users ON events.creator_email = users.user_email
 	    	WHERE event_name LIKE '%$search_input%' 
 	    	OR venue LIKE '%$search_input%'
 	    	OR user_name LIKE '%$search_input%'
