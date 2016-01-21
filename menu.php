@@ -1,5 +1,5 @@
 <div class="menu">
-    <h2>Coola bokningar!</h2>
+    <h2>Epic Events</h2>
     <ul>
         
         <li><a href="index.php">Startsida</a></li>

@@ -18,7 +18,7 @@
 	    }
 
 	    $query = "SELECT event_id, event_name, total_tickets, available_tickets, venue, 
-	    		  startdate, starttime, user_email, category_id, user_name, category_name,
+	    		  startdate, starttime, user_email, user_name, category_name,
 	    		  booking_id, tickets
 	    		  FROM bookings NATURAL JOIN events NATURAL JOIN users NATURAL JOIN categories
 	    		  WHERE booking_id = '$booking_id'

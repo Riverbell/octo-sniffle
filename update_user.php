@@ -87,6 +87,7 @@
 		<div class="container">
 			<form action='' method='post'>
 	        		<input type='hidden' name='old_user_email' value='<?php echo "$user_email" ?>'/>
+	        		<input type='hidden' name='old_password' value='<?php echo "$user_password" ?>'/>
 		        	<p>Namn: 
 		        		<input type='text' name='new_user_name' value='<?php echo "$user_name" ?>'/>
 		        	</p>

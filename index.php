@@ -171,7 +171,7 @@
         print $menuItem;
     ?>
 </menu>
-<title>Coola bokningar!</title>
+<title>Epic Events</title>
 <events>
     <?php
         print utf8_encode($event_tag);
