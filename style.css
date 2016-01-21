@@ -4,7 +4,7 @@
 body { 
 	background-color: #eee;
 	font-family: 'Raleway';
-	padding-top: 40px;
+	padding-top: 40px; /* för att menyn inte ska täcka innehållet */
 }
 input {
 	font-family: 'Raleway';
@@ -84,6 +84,7 @@ a:hover { /* mouse hover på standardlänkar */
 	border: none;
 	color: #fff;
 	cursor: pointer; /* så att musen blir en pekare */
+	-webkit-appearance: none; /* fix för fula knappar på iphone */
 }
 
 /* deleteknapp, samma som ovan men röd */
@@ -113,4 +114,37 @@ form#search input[type='text'] {
 	display: block;
 	width: 100%;
 	padding: 7px 7px;
+}
+
+
+/* media queries ======================================
+ */
+
+@media (max-width: 900px) {
+	body, html {
+		margin: 0;
+		padding: 0;
+	}
+
+	.container {
+		padding: 15px 5%;
+		margin: 20px auto;
+		width: 90%;
+	}
+
+	.menu {
+		height: auto;
+		position: relative;
+		text-align: center;
+		padding-top: 10px;
+	}
+
+	.menu ul {
+		display: block;
+	}
+
+	.menu li {
+		display: block;
+		background-color: MediumTurquoise;
+	}
 }

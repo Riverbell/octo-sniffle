@@ -59,7 +59,7 @@
 				</ul>
 				";
 
-	    	$booking_form = "<form action='book_event_process.php' method='post'>
+	    	$booking_form = "<form action='' method='post'>
 					<input type='hidden' value='$event_id' name='event_id'/>
 					<p>
 						Välj antal biljetter: 
@@ -77,14 +77,63 @@
 					<input class='submit_button' type='submit' value='Boka'/>
 			</form>
 	    	";
+	    } // end while
 
-	    	
+	    if(isset($_POST['event_id'], $_POST['numberOfTickets'])) {
+	    	//creating variables
+		    $booker_email = $_SESSION['name'];
+		    $event_id = $_POST['event_id'];
+		    $numberOfTickets = $_POST['numberOfTickets'];
+
+		    //checking the number of available tickets in chosen event
+		    $query = "SELECT available_tickets
+		              FROM events
+		              WHERE event_id = $event_id";
+		    // Execute the query
+		    if (($result = mysqli_query($link, $query)) === false) {
+		       printf("Query failed: %s<br />\n%s", $query, mysqli_error($link));
+		       exit();
+		    }
+		    $line = $result->fetch_object();
+		    $available_tickets = $line->available_tickets;
+
+		    //check if there's room
+		    if ( $numberOfTickets > $available_tickets) {
+		        $booking_result = "Det finns inte så många platser. 
+		            <p><b>Bokning avbruten</b></p>";
+		    } else {
+		        //create the booking ==============================
+		        $query ="INSERT INTO bookings (user_email, event_id, tickets) VALUES 
+		        ('$booker_email', '$event_id', '$numberOfTickets')
+		        ";
+
+		    	// Execute the query
+		        if (($result = mysqli_query($link, $query)) === false) {
+		           printf("Query failed: %s<br />\n%s", $query, mysqli_error($link));
+		           exit();
+		        }
+		        else {
+		            $booking_result = "<p>Bokning klar!</p>";
+		        }
+
+		        //update number of available tickets ================
+		        $available_tickets = $available_tickets - $numberOfTickets;
+		        $query = "UPDATE events
+		                  SET available_tickets = $available_tickets
+		                  WHERE event_id = $event_id";
+		        // Execute the query
+		        if (($result = mysqli_query($link, $query)) === false) {
+		           printf("Query failed: %s<br />\n%s", $query, mysqli_error($link));
+		           exit();
+		        }
+		    }
 	    }
 	?>
 	<head>
 		<title>Uppdatera event</title>
 	    <link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width" />
 	</head>
 	<body>
 		<?php
@@ -92,6 +141,7 @@
 		print ("<div class='container'>");
         print $event_info;
         print $booking_form;
+        print $booking_result;
         print ("</div>");
     ?>
 

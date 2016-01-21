@@ -41,6 +41,7 @@ if(isset($_POST['user_email'], $_POST['password'])) {
 	<title>Logga in</title>
 	<link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width" />
 </head>
 <body>
 	<?php include 'menu.php'; ?>

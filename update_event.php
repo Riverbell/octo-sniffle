@@ -55,9 +55,6 @@
 					<p>Totalt Antal Biljetter:
 					<input type='text' name='input_totalTickets' value='$total_tickets'/>
 					</p>
-					<p>Antal Tillgängliga Biljetter:
-					<input type='text' name='input_availableTickets' value='$available_tickets'/>
-					</p>
 					<p>Arena:
 					<input type='text' name='input_venue' value='$venue'/>
 					</p>
@@ -108,6 +105,7 @@
 		<title>Uppdatera event</title>
 	    <link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width" />
 	</head>
 	<body>
 		<?php
@@ -127,7 +125,6 @@
 
 		    $query = "UPDATE events
 		    SET event_name = '$event_name', total_tickets = '$_POST[input_totalTickets]', 
-		    available_tickets = '$_POST[input_availableTickets]',
 		    venue = '$venue', startdate = '$_POST[input_startdate]', 
 		    starttime = '$_POST[input_starttime]', 
 		    category_name = '$category'

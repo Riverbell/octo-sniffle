@@ -12,6 +12,7 @@
 		<head>
 			<title><xsl:value-of select="title"/></title>
 			<link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
+			<meta name="viewport" content="width=device-width" />
 
 			<script language = "javascript" type = "text/javascript">
             <xsl:text disable-output-escaping="yes">

@@ -22,8 +22,8 @@
 	?>
 	<form id="test">
 		<label>Eventnamn</label>
-		<input id='name' name='event_name' placeholder='Eventnamn' type='text' onkeypress='return runScript(event)'/>
-		<input id='butt' type='button' onclick = 'ajaxFunction()' value='Sök' />
+		<input id='name' name='event_name' placeholder='Eventnamn' type='text' onkeypress='return runSearch(event)'/>
+		<input id='butt' type='button' onclick = 'ajaxFunc_search()' value='Sök' />
 	</form>
 	<?php
 	print("</div>");
@@ -32,14 +32,14 @@
 	<script language = "javascript" type = "text/javascript">
             //Browser Support Code
 
-		    function runScript(e) {
+		    function runSearch(e) {
 			    if (e.keyCode == 13) {
-			        ajaxFunction();
+			        ajaxFunc_search();
 			        return false;
 			    }
 }
 
-            function ajaxFunction(){
+            function ajaxFunc_search(){
                var ajaxRequest;  // The variable that makes Ajax possible!
                
                try {

@@ -39,7 +39,8 @@
 
     //check if there's room
     if ( $numberOfTickets > $available_tickets) {
-        print utf8_decode("Det finns inte så många platser!");
+        echo "Det finns inte så många platser. 
+            <p><b>Bokning avbruten</b></p>";
     } else {
         //create the booking ==============================
         $query ="INSERT INTO bookings (user_email, event_id, tickets) VALUES 
@@ -52,8 +53,7 @@
            exit();
         }
         else {
-            print utf8_decode("<p>Bokning klar!</p>
-                <a href='/~emmabac/DM2517/project/index.php'>Gå tillbaka</a>");
+            echo "<p>Bokning klar!</p>";
         }
 
         //update number of available tickets ================
@@ -65,10 +65,6 @@
         if (($result = mysqli_query($link, $query)) === false) {
            printf("Query failed: %s<br />\n%s", $query, mysqli_error($link));
            exit();
-        }
-        else {
-            print utf8_decode("<p>Success!</p>
-                <a href='/~emmabac/DM2517/project/index.php'>Gå tillbaka</a>");
         }
     }
 ?>

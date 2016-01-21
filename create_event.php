@@ -12,6 +12,7 @@
 	<title>Skapa event</title>
 	<link rel="stylesheet" type="text/css" href="/~emmabac/DM2517/project/style.css"/>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width" />
 </head>
 <body>
 	<?php include 'menu.php'; ?>
@@ -68,14 +69,11 @@
 	<div class="container">
 		<form action="" method="post">
 			<h2>Skapa ett nytt event</h2>
-			<p>Event Namn:
+			<p>Eventnamn:
 			<input type="text" name="input_name"/>
 			</p>
 			<p>Totalt Antal Biljetter:
 			<input type="text" name="input_totalTickets"/>
-			</p>
-			<p>Antal Tillgängliga Biljetter:
-			<input type="text" name="input_availableTickets"/>
 			</p>
 			<p>Arena:
 			<input type="text" name="input_venue"/>
@@ -104,7 +102,7 @@
 			<span><?php echo $error; ?></span>
 		</form>
 		<?php
-			if(isset($_POST['input_name'], $_POST['input_totalTickets'], $_POST['input_availableTickets'], $_POST['input_venue'], $_POST['input_startdate'], $_POST['input_starttime'], $_POST['input_creatorEmail'], $_POST['input_categoryID'])) {
+			if(isset($_POST['input_name'], $_POST['input_totalTickets'], $_POST['input_venue'], $_POST['input_startdate'], $_POST['input_starttime'], $_POST['input_categoryID'])) {
 				//Connecting to sql db.
 				$link = mysqli_connect('localhost', 'emmabac', 'emmabac-xmlpub13', 'emmabac');
 
@@ -115,7 +113,7 @@
 			    }
 
 			    $query = "INSERT INTO events (event_name, total_tickets, available_tickets, venue, startdate, starttime, creator_email, category_name) 
-			    	 	  VALUES ('$_POST[input_name]', '$_POST[input_totalTickets]','$_POST[input_availableTickets]','$_POST[input_venue]','$_POST[input_startdate]','$_POST[input_starttime]','$_POST[input_creatorEmail]','$_POST[input_categoryID]')
+			    	 	  VALUES ('$_POST[input_name]', '$_POST[input_totalTickets]','$_POST[input_totalTickets]','$_POST[input_venue]','$_POST[input_startdate]','$_POST[input_starttime]','$_POST[input_creatorEmail]','$_POST[input_categoryID]')
 			    ";
 
 				// Execute the query
